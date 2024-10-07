@@ -221,7 +221,9 @@ On peut maintenant comparer les différents modèles pour choisir le meilleur. L
 Voici donc notre modèle finale comportant tous les meilleurs modèles trouvés auparavant :
 
 `Psi.r.time.ac=list(formula=\~ -1+stratum:tostratum:time:ageclass)` 
+
 `p.stratumtimeac=list(formula=\~stratum\*time\*ageclass)` 
+
 `S.stratumtimeac=list(formula=\~stratum\*time\*ageclass)`
 
 Il parait assez logique que ce soit les modèles avec \* qui ont les résultats avec le plus faible AICc car "time" et "ageclass" sont en interaction avec le paramètre stratum.
