@@ -23,7 +23,7 @@ head(Stern)
 
 ## II - Création du "process data" et du "design data" :
 
-Dans le process data on inclue l'année de début des mesures et le site originaire des sternes.
+Dans le `process data` on inclue l'année de début des mesures et le site originaire des sternes.
 
 ```{r}
 dp = process.data(Stern, model = "Multistrata", strata.labels = c("C","L", "R"), begin.time = 1992)
@@ -86,9 +86,9 @@ Le meilleur modèle obtenu pour p est donc "p.stratumtimeac". Il comprend donc l
 
 ## IV - Fabrication du second modèle pour Phi (survie) :
 
-Le second modèle a être recherché est le modèle pour la survie. Pour ce modèle comme le précédent on conservera le même dp et ddl. De plus, on conservera aussi le meilleur modèle p pour continuer à travailler.
+Le second modèle a être recherché est le modèle pour la survie. Pour ce modèle comme le précédent, on conservera le même dp et ddl. De plus, on conservera aussi le meilleur modèle p pour continuer à travailler.
 
-Encore une fois, pour ce modèle ce qui est recherché est l'AICc le plus faible ainsi on va modifié différents paramètres du modèle de survie S pour obtenir le meilleur.
+Encore une fois, pour ce modèle ce qui est recherché est l'AICc le plus faible ainsi on va modifier différents paramètres du modèle de survie S pour obtenir le meilleur.
 
 ```{r}
 run.Stern1=function()
@@ -126,7 +126,7 @@ Stern.results1=run.Stern1()
 Stern.results1
 ```
 
-Comme pour le modèle précéden,t on retrouve le meilleur modèle d'AICc avec les paramètres de temps continu, la classe d'age et le site d'observation. C'est donc le modèle "S.stratumtimeac" ce qui permet de faire baisser l'AICc à 97360.04 et se sera le seul conservé car il possède un weight de 1.
+Comme pour le modèle précédent, on retrouve le meilleur modèle d'AICc avec les paramètres de temps continu, la classe d'age et le site d'observation. C'est donc le modèle "S.stratumtimeac" ce qui permet de faire baisser l'AICc à 97360.04 et se sera le seul conservé car il possède un weight de 1.
 
 ## V - Fabrication du troisième modèle pour Psi (probabilité de passer d'une colonie à une autre) :
 
@@ -173,7 +173,7 @@ Stern.results2=run.Stern2()
 Stern.results2
 ```
 
-La suite des recherches va se faire avec les paramètres stratum et tostratum.
+La suite des recherches vont se faire avec les paramètres stratum et tostratum.
 
 ```{r}
 run.Stern3=function()
@@ -222,7 +222,7 @@ Voici donc notre modèle finale comportant tous les meilleurs modèles trouvés 
 
 Psi.r.time.ac=list(formula=\~ -1+stratum:tostratum:time:ageclass) p.stratumtimeac=list(formula=\~stratum\*time\*ageclass) S.stratumtimeac=list(formula=\~stratum\*time\*ageclass)
 
-Il parait assez logique que se soit les modèles avec \* qui ont le résultat avec le plus faible AICc car "time" et "ageclass" sont en interaction avec le paramètre stratum.
+Il parait assez logique que ce soit les modèles avec \* qui ont le résultat avec le plus faible AICc car "time" et "ageclass" sont en interaction avec le paramètre stratum.
 
 ```{r}
 run.Sternf=function()
@@ -257,10 +257,10 @@ summary(run.Sternf())
 
 En revanche nous n'avons pas réussi à faire fonctionner le "model averaging" pour estimer les paramètres une erreur nous a bloqué lors de cette dernière étape.
 
-L'AIC est un outil utilisé en statitistique pour comparer différents modèles et évaluer leur ajustement aux données. Ce modèle prouve bien que psi et phy, le taux de substitution et le taux de survie, impactent p, le taux de détection de la stern. De plus, le weight de 1 semble assez logique car l'AICc étant très élevé il y a donc plus de chance que le l'écart entre les modèles soient très significatif.
+L'AIC est un outil utilisé en statistique pour comparer différents modèles et évaluer leur ajustement aux données. Ce modèle prouve bien que psi et phy, le taux de substitution et le taux de survie, impactent p, le taux de détection de la stern. De plus, le weight de 1 semble assez logique car l'AICc étant très élevé il y a donc plus de chance que le l'écart entre les modèles soient très significatif.
 
 Ce modèle nous permet d'observer un taux de survie qui varie entre les années mais aussi entre les sites, de plus la classe d'âge influe aussi sur la survie. La survie est plus faible chez la classe d'age 1 (entre 0 et 2 ans) que sur la seconde classe d'âge, on observe que cette variation peut être de 50% entre les sternes juvéniles et les sternes aldutes. L'année semble aussi provoquer des variations sur la survie allant jusqu'à un écart de 30% chez les adultes. La localité aura aussi un impact car sur la même année et sur la même classe d'âge la probabilité de survie ne sera pas la même entre L, R ou encore C. En revanche, on observe que le paramètre distance ne permet pas d'obtenir un meilleur modèle et même au contraire cela le détériore en augmentant l'AICc final.
 
-Le taux de survie va être impacté par le taux de subsitution car la survie varie d'une île à une autre de plus il semble y avoir un plus gros mouvement des sternes vers le site R et un très faible mouvement des sterns entre le site C et L.
+Le taux de survie va être impacté par le taux de substitution car la survie varie d'une île à une autre de plus il semble y avoir un plus gros mouvement des sternes vers le site R et un très faible mouvement des sterns entre le site C et L.
 
 Le model average n'ayant pas fonctionné il est compliqué d'obtenir d'information et de donc de donner plus de conclusion.
